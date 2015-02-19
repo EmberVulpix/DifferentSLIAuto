@@ -1,7 +1,7 @@
 ##DifferentSLI Auto NVIDIA® Driver Patcher and Signer by Ember
 ####What it is
 ---
-This patcher will automatically patch and sign "nvlddmkm.sys" for NVIDIA® drivers for 64-bit systems to enable SLI with different cards.
+This patcher will automatically patch and sign "nvlddmkm.sys" for NVIDIA® drivers for 64-bit systems to enable SLI™ with different cards.
 ####To use
 ---
 1. Install original NVIDIA® drivers
