@@ -17,11 +17,11 @@ This patcher will automatically patch and sign "nvlddmkm.sys" for NVIDIA® drive
 Windows Test Sign Mode MUST be enabled for the patched drivers to load!
 ####FAQ
 ---
-Q: Completely uninstalling DifferentSLIAuto
-OR
-Q: SignTool lists multiple certificates suitable for signing
-A: Follow all steps in post below
-http://www.techpowerup.com/forums/threads/sli-with-different-cards.158907/page-54#post-3215633
+   Q: Completely uninstalling DifferentSLIAuto  
+   OR  
+   Q: SignTool lists multiple certificates suitable for signing  
+   A: Follow all steps in post below  
+   http://www.techpowerup.com/forums/threads/sli-with-different-cards.158907/page-54#post-3215633  
 ####History
 ---
    ~~version 1.3 xx/xx/15 Changed licensed to Unlicense, source now publically pubished~~  
