@@ -31,5 +31,6 @@ Windows Test Sign Mode MUST be enabled for the patched drivers to load!
 ####Thanks
 ---
    anatolymik @ techPowerUp! for the original patch  
+   DifferentSLI Auto uses [uFMOD](http://ufmod.sourceforge.net/), [Kurapika's C# Native DLL Mapper](http://forum.exetools.com/showthread.php?t=15309), and sigScan C# Implementation by [atom0s](https://github.com/atom0s)
 
 NVIDIA and SLI are trademarks and/or registered trademarks of NVIDIA Corporation in the U.S. and other countries.
