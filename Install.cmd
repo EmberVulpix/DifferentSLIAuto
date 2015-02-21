@@ -17,8 +17,8 @@ call "tools\CertMgr.exe" /add "%SystemRoot%\DifferentSLIAuto.cer" /s /r localMac
 
 :certexists
 
-call "tools\signtool.exe" sign /v /s DifferentSLIAuto /n DifferentSLIAuto /t http://timestamp.verisign.com/scripts/timstamp.dll "nvlddmkm.sys"
 call "tools\ChecksumFix.exe" "nvlddmkm.sys"
+call "tools\signtool.exe" sign /v /s DifferentSLIAuto /n DifferentSLIAuto /t http://timestamp.verisign.com/scripts/timstamp.dll "nvlddmkm.sys"
 call "%SystemRoot%\System32\takeown.exe" /f "%SystemRoot%\System32\drivers\nvlddmkm.sys" /a
 call "%SystemRoot%\System32\icacls.exe" "%SystemRoot%\System32\drivers\nvlddmkm.sys" /grant "%USERNAME%":f
 call "%SystemRoot%\System32\bcdedit.exe" /set TESTSIGNING ON

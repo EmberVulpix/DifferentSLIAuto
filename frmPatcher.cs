@@ -98,7 +98,7 @@ namespace DifferentSLIAuto
         {
             int[] patches = new int[10];
             int[] patchPerms = new int[10];
-            int patchTemp = 0, sizeOfImage = 0;
+            int patchTemp = 0;
 
             if (!File.Exists(DRIVER_FILE))
             {
@@ -325,15 +325,7 @@ namespace DifferentSLIAuto
                 File.Move(DRIVER_FILE, string.Concat(DRIVER_FILE, ".bak"));
                 using (BinaryWriter bw = new BinaryWriter(File.OpenWrite(DRIVER_FILE)))
                 {
-                    sizeOfImage = RealSizeOfImage();
-                    if (sizeOfImage > 0)
-                    {
-                        bw.Write(m_vFileToPatch, 0, sizeOfImage);
-                    }
-                    else
-                    {
-                        bw.Write(m_vFileToPatch, 0, m_vFileToPatch.Length);
-                    }
+                    bw.Write(m_vFileToPatch, 0, m_vFileToPatch.Length);
                     bw.Flush();
                     bw.Close();
                 }
@@ -345,24 +337,6 @@ namespace DifferentSLIAuto
             }
 
             btnPatch.Enabled = true;
-        }
-
-        private int RealSizeOfImage()
-        {
-            if (m_vFileToPatch != null && m_vFileToPatch.Length > 0)
-            {
-                IMAGE_DOS_HEADER dosHeader = DynamicDllLoader.PointerHelpers.ToStruct<IMAGE_DOS_HEADER>(m_vFileToPatch);
-                if (dosHeader.e_magic == 0x5A4D)
-                {
-                    IMAGE_NT_HEADERS ntHeaders = DynamicDllLoader.PointerHelpers.ToStruct<IMAGE_NT_HEADERS>(m_vFileToPatch, (uint)dosHeader.e_lfanew);
-                    if (ntHeaders.Signature == 0x4550)
-                    {
-                        IMAGE_SECTION_HEADER lastSection = DynamicDllLoader.PointerHelpers.ToStruct<IMAGE_SECTION_HEADER>(m_vFileToPatch, (uint)(dosHeader.e_lfanew + 4 + Marshal.SizeOf(typeof(IMAGE_FILE_HEADER)) + ntHeaders.FileHeader.SizeOfOptionalHeader + (Marshal.SizeOf(typeof(IMAGE_SECTION_HEADER)) * (ntHeaders.FileHeader.NumberOfSections - 1))));
-                        return (int)(lastSection.PointerToRawData + lastSection.SizeOfRawData);
-                    }
-                }
-            }
-            return 0;
         }
 
         #region "sigScan Class Private Methods"
