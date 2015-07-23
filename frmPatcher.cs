@@ -17,10 +17,9 @@ namespace DifferentSLIAuto
         ///     The contents of the file to be patched.
         /// </summary>
         private byte[] m_vFileToPatch;
+        private string m_DriverFile;
 
         private ListBoxLog listBoxLog;
-
-        private const string DRIVER_FILE = "nvlddmkm.sys";
 
         internal enum uFMOD_Flags
         {
@@ -60,7 +59,7 @@ namespace DifferentSLIAuto
             uint addrSetVolume = loader.GetProcAddress("uFMOD_SetVolume");
             uint addrPlaySong = loader.GetProcAddress("uFMOD_PlaySong");
 
-            using (UnmanagedMemoryStream xm = (UnmanagedMemoryStream)Assembly.GetEntryAssembly().GetManifestResourceStream("DifferentSLIAuto.toilet4.xm"))
+            using (UnmanagedMemoryStream xm = (UnmanagedMemoryStream)Assembly.GetEntryAssembly().GetManifestResourceStream("DifferentSLIAuto.moonflight.xm"))
             {
                 if (xm == null)
                 {
@@ -100,11 +99,22 @@ namespace DifferentSLIAuto
             int[] patchPerms = new int[10];
             int patchTemp = 0;
 
-            if (!File.Exists(DRIVER_FILE))
+            if (!File.Exists("nvlddmkm.sys"))
             {
-                listBoxLog.Log(ListBoxLog.Level.Error, string.Format("Could not find \"{0}\", please place it in the patcher directory.", DRIVER_FILE));
-                btnPatch.Enabled = true;
-                return;
+                if (!File.Exists("nvlddmkm2.sys"))
+                {
+                    listBoxLog.Log(ListBoxLog.Level.Error, string.Format("Could not find \"{0}\", please place it in the patcher directory.", m_DriverFile));
+                    btnPatch.Enabled = true;
+                    return;
+                }
+                else
+                {
+                    m_DriverFile = "nvlddmkm2.sys";
+                }
+            }
+            else
+            {
+                m_DriverFile = "nvlddmkm.sys";
             }
             if ((patches[0] = FindPattern(new byte[] { 0x74, 0x00, 0xFE, 0x81, 0x00, 0x00, 0x00, 0x00, 0x0F, 0xBE, 0x81 }, "x?xx????xxx", 0x600)) == -1)
                 listBoxLog.Log(ListBoxLog.Level.Error, "Could not find patch #1. Please inform Ember @ techPowerUp! forums.");
@@ -322,8 +332,8 @@ namespace DifferentSLIAuto
                     }
                 }
 
-                File.Move(DRIVER_FILE, string.Concat(DRIVER_FILE, ".bak"));
-                using (BinaryWriter bw = new BinaryWriter(File.OpenWrite(DRIVER_FILE)))
+                File.Move(m_DriverFile, string.Concat(m_DriverFile, ".bak"));
+                using (BinaryWriter bw = new BinaryWriter(File.OpenWrite(m_DriverFile)))
                 {
                     bw.Write(m_vFileToPatch, 0, m_vFileToPatch.Length);
                     bw.Flush();
@@ -387,7 +397,7 @@ namespace DifferentSLIAuto
                 // Read the file to patch into memory if we have not read it yet.
                 if (this.m_vFileToPatch == null || this.m_vFileToPatch.Length == 0)
                 {
-                    this.m_vFileToPatch = File.ReadAllBytes(DRIVER_FILE);
+                    this.m_vFileToPatch = File.ReadAllBytes(m_DriverFile);
                 }
 
                 if (startAddress < 0) return -1;

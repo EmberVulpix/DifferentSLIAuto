@@ -4,6 +4,9 @@ title DifferentSLI Sign and Install
 setlocal EnableExtensions
 cd /d "%~dp0"
 
+set _nvlddmkm=nvlddmkm
+if exist "nvlddmkm2.sys" then set _nvlddmkm=nvlddmkm2
+
 if not exist "tools\" goto wtfrudoin
 
 net session >nul 2>&1
@@ -17,19 +20,19 @@ call "tools\CertMgr.exe" /add "%SystemRoot%\DifferentSLIAuto.cer" /s /r localMac
 
 :certexists
 
-call "tools\ChecksumFix.exe" "nvlddmkm.sys"
-call "tools\signtool.exe" sign /v /s DifferentSLIAuto /n DifferentSLIAuto /t http://timestamp.verisign.com/scripts/timstamp.dll "nvlddmkm.sys"
-call "%SystemRoot%\System32\takeown.exe" /f "%SystemRoot%\System32\drivers\nvlddmkm.sys" /a
-call "%SystemRoot%\System32\icacls.exe" "%SystemRoot%\System32\drivers\nvlddmkm.sys" /grant "%USERNAME%":f
+call "tools\ChecksumFix.exe" "%_nvlddmkm%.sys"
+call "tools\signtool.exe" sign /v /s DifferentSLIAuto /n DifferentSLIAuto /t http://timestamp.verisign.com/scripts/timstamp.dll "%_nvlddmkm%.sys"
+call "%SystemRoot%\System32\takeown.exe" /f "%SystemRoot%\System32\drivers\%_nvlddmkm%.sys" /a
+call "%SystemRoot%\System32\icacls.exe" "%SystemRoot%\System32\drivers\%_nvlddmkm%.sys" /grant "%USERNAME%":f
 call "%SystemRoot%\System32\bcdedit.exe" /set TESTSIGNING ON
 
 if exist "%SystemRoot%\Sysnative\" goto x32mode
 
-copy "nvlddmkm.sys" "%SystemRoot%\System32\drivers\nvlddmkm.sys" /y
+copy "%_nvlddmkm%.sys" "%SystemRoot%\System32\drivers\%_nvlddmkm%.sys" /y
 goto filecopied
 
 :x32mode
-copy "nvlddmkm.sys" "%SystemRoot%\Sysnative\drivers\nvlddmkm.sys" /y
+copy "%_nvlddmkm%.sys" "%SystemRoot%\Sysnative\drivers\%_nvlddmkm%.sys" /y
 
 :filecopied
 color 0a
