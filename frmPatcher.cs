@@ -103,7 +103,7 @@ namespace DifferentSLIAuto
             {
                 if (!File.Exists("nvlddmkm2.sys"))
                 {
-                    listBoxLog.Log(ListBoxLog.Level.Error, string.Format("Could not find \"{0}\", please place it in the patcher directory.", m_DriverFile));
+                    listBoxLog.Log(ListBoxLog.Level.Error, "Could not find \"nvlddmkm.sys\" or \"nvlddmkm2.sys,\" please place it in the patcher directory.");
                     btnPatch.Enabled = true;
                     return;
                 }
