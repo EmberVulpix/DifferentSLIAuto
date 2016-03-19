@@ -24,6 +24,7 @@ Windows Test Sign Mode MUST be enabled for the patched drivers to load!
    http://www.techpowerup.com/forums/threads/sli-with-different-cards.158907/page-54#post-3215633  
 ####History
 ---
+   version 1.4 19/03/16 Supporting WHQL 364.51 and up  
    version 1.3.1 23/07/15 Preliminary Windows 10 support  
    version 1.3 20/02/15 First GitHub release, tweaked Install.cmd, updated tools folder  
    version 1.2 16/01/15 Supporting up to WHQL 347.09 and up, tweaked Install.cmd, updated tools folder, corrected dates in changelog, added "License" section, tweaked section titles, tweaked "To use" section, added "FAQ" section  

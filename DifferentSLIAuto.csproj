@@ -85,7 +85,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="moonflight.xm" />
+    <EmbeddedResource Include="plastic.xm" />
     <None Include="ufmod.dll" />
   </ItemGroup>
   <ItemGroup>

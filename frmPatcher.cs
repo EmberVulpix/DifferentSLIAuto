@@ -59,7 +59,7 @@ namespace DifferentSLIAuto
             uint addrSetVolume = loader.GetProcAddress("uFMOD_SetVolume");
             uint addrPlaySong = loader.GetProcAddress("uFMOD_PlaySong");
 
-            using (UnmanagedMemoryStream xm = (UnmanagedMemoryStream)Assembly.GetEntryAssembly().GetManifestResourceStream("DifferentSLIAuto.moonflight.xm"))
+            using (UnmanagedMemoryStream xm = (UnmanagedMemoryStream)Assembly.GetEntryAssembly().GetManifestResourceStream("DifferentSLIAuto.plastic.xm"))
             {
                 if (xm == null)
                 {
@@ -124,19 +124,15 @@ namespace DifferentSLIAuto
                 listBoxLog.Log(ListBoxLog.Level.Error, "Could not find patch #3. Please inform Ember @ techPowerUp! forums.");
             if ((patches[3] = FindPattern(new byte[] { 0x75, 0x00, 0x0F, 0xBA, 0xE8, 0x00, 0x89, 0x45, 0x00, 0x85, 0xC0, 0x0F, 0x85, 0x00, 0x00, 0x00, 0x00, 0x85, 0xDB, 0x0F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x33 }, "x?xxx?xx?xxxx????xxxx????x", 0x600)) == -1)
             {
-                listBoxLog.Log(ListBoxLog.Level.Info, "Could not find patch #4, falling back to permutation #1");
                 if ((patches[3] = FindPattern(new byte[] { 0x75, 0x00, 0x0F, 0xBA, 0x6D, 0x00, 0x0E, 0x85, 0xDB, 0x0F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x33 }, "x?xxx?xxxxx????x", 0x600)) == -1)
                 {
-                    listBoxLog.Log(ListBoxLog.Level.Info, "Could not find patch #4, falling back to permutation #2");
                     if ((patches[3] = FindPattern(new byte[] { 0x75, 0x00, 0x0F, 0xBA, 0xAC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x85, 0xF6, 0x0F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x33 }, "x?xxx??????xxxx????x", 0x600)) == -1)
                     {
-                        listBoxLog.Log(ListBoxLog.Level.Info, "Could not find patch #4, falling back to permutation #3");
-                        if ((patches[3] = FindPattern(new byte[] { 0x75, 0x00, 0x0F, 0xBA, 0xE8, 0x0E, 0x89, 0x45, 0x40, 0x85, 0xC0, 0x0F, 0x85, 0x00, 0x00, 0x00, 0x00, 0x85, 0xFF, 0x0F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x44 }, "x?xxxxxxxxxxx????xxxx????x", 0x600)) == -1) //337.50
+                        if ((patches[3] = FindPattern(new byte[] { 0x75, 0x07, 0x0F, 0xBA, 0x00, 0x0E, 0x89, 0x00, 0x00, 0x85, 0x00, 0x0F, 0x85, 0x00, 0x00, 0x00, 0x00, 0x85, 0x00, 0x0F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x44 }, "xxxx?xx??x?xx????x?xx????x", 0x600)) == -1) //337.50+
                         {
-                            listBoxLog.Log(ListBoxLog.Level.Info, "Could not find patch #4, falling back to permutation #4");
                             if ((patches[3] = FindPattern(new byte[] { 0x75, 0x05, 0x0F, 0xBA, 0x6D, 0x00, 0x00, 0x85, 0xF6, 0x0F, 0x84 }, "xxxxx??xxxx", 0x600)) == -1) //307.32
                             {
-                                listBoxLog.Log(ListBoxLog.Level.Error, "Could not find patch #4 at all. Please inform Ember @ techPowerUp! forums.");
+                                listBoxLog.Log(ListBoxLog.Level.Error, "Could not find patch #4. Please inform Ember @ techPowerUp! forums.");
                             }
                             else patchPerms[3] = 4;
                         }
@@ -256,7 +252,7 @@ namespace DifferentSLIAuto
                     m_vFileToPatch[patches[3] + 17] = 0x90;
                     m_vFileToPatch[patches[3] + 18] = 0x90;
                 }
-                else if (patchPerms[3] == 3) //337.50 beta
+                else if (patchPerms[3] == 3) //337.50+
                 {
                     m_vFileToPatch[patches[3]] = 0x90;
                     m_vFileToPatch[patches[3] + 1] = 0x90;

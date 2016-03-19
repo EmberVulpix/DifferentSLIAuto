@@ -62,7 +62,7 @@
             this.MaximizeBox = false;
             this.Name = "frmPatcher";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "DifferentSLI Patcher v1.3 by Ember 2k15!";
+            this.Text = "DifferentSLI Patcher v1.4 by Ember 2k16!";
             this.Load += new System.EventHandler(this.frmPatcher_Load);
             this.ResumeLayout(false);
 
